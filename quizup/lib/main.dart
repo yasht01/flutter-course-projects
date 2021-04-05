@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'question.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 void main() => runApp(MyApp());
 
@@ -36,6 +37,31 @@ class QuizPage extends StatefulWidget {
 
 class _QuizPageState extends State<QuizPage> {
   Question brain = Question();
+
+  _onBasicAlertPressed(context) {
+    Alert(
+      context: context,
+      type: AlertType.success,
+      title: "",
+      desc: "Score: ${brain.getScore()}",
+      buttons: [
+        DialogButton(
+          child: Text(
+            "Reset",
+            style: TextStyle(color: Colors.white, fontSize: 20),
+          ),
+          onPressed: () {
+            brain.reset();
+            Navigator.pop(context);
+          },
+          gradient: LinearGradient(colors: [
+            Color.fromRGBO(116, 116, 191, 1.0),
+            Color.fromRGBO(52, 138, 199, 1.0)
+          ]),
+        )
+      ],
+    ).show();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -76,6 +102,9 @@ class _QuizPageState extends State<QuizPage> {
               onPressed: () {
                 setState(() {
                   brain.checkAnswer(true);
+                  if (brain.isFinished()) {
+                    _onBasicAlertPressed(context);
+                  }
                   brain.increaseCount();
                 });
               },
@@ -99,6 +128,9 @@ class _QuizPageState extends State<QuizPage> {
               onPressed: () {
                 setState(() {
                   brain.checkAnswer(false);
+                  if (brain.isFinished()) {
+                    _onBasicAlertPressed(context);
+                  }
                   brain.increaseCount();
                 });
               },

@@ -5,7 +5,7 @@ class Question {
   List<bool> _answers;
   List<Widget> _scoreKeeper = [];
 
-  int score = 0;
+  int _score = 0;
   int _questionIndex;
 
   Question() {
@@ -26,7 +26,7 @@ class Question {
   void checkAnswer(bool userAnswer) {
     if (_questionIndex < _questions.length) {
       if (_answers[_questionIndex] == userAnswer) {
-        score++;
+        _score++;
         _scoreKeeper.add(
           Icon(
             Icons.check,
@@ -60,15 +60,24 @@ class Question {
 
   bool isFinished() {
     if (_questionIndex == _questions.length - 1) {
-      print('Now returning true');
       return true;
     } else {
       return false;
     }
   }
 
+  void resetQuiz() {
+    _questionIndex = 0;
+  }
+
   void reset() {
     _questionIndex = 0;
+    _scoreKeeper.clear();
+    _score = 0;
+  }
+
+  int getScore() {
+    return _score;
   }
 
 }

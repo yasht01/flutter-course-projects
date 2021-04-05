@@ -11,7 +11,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  o_popup: ^1.0.0
+  rflutter_alert: ^2.0.2
   cupertino_icons: ^1.0.2
 
 dev_dependencies:
