@@ -51,7 +51,9 @@ class _QuizPageState extends State<QuizPage> {
             style: TextStyle(color: Colors.white, fontSize: 20),
           ),
           onPressed: () {
-            brain.reset();
+            setState(() {
+              brain.reset();
+            });
             Navigator.pop(context);
           },
           gradient: LinearGradient(colors: [
@@ -137,22 +139,16 @@ class _QuizPageState extends State<QuizPage> {
             ),
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.symmetric(
-            vertical: 8.0,
-            horizontal: 8.0,
+        Container(
+          padding: const EdgeInsets.fromLTRB(
+            15.0, 0.0, 15.0, 15.0
           ),
-          child: Visibility(
-            visible: true,
-            maintainState: true,
-            maintainAnimation: true,
-            maintainSize: true,
-            maintainInteractivity: true,
-            child: Row(
-              children: brain.getScoreKeeper(),
-            ),
+          height: MediaQuery.of(context).size.height * 0.05,
+          width: double.infinity,
+          child: Row(
+            children: brain.getScoreKeeper(),
           ),
-        )
+        ),
       ],
     );
   }
