@@ -1,6 +1,9 @@
 import 'package:bmi_calculator/constants.dart';
 import 'package:flutter/material.dart';
 
+// Screens
+import 'package:bmi_calculator/screens/result_interpret_page.dart';
+
 // Components
 import 'package:bmi_calculator/components/block.dart';
 import 'package:bmi_calculator/components/bottom_button.dart';
@@ -23,6 +26,8 @@ class ResultsPage extends StatelessWidget {
       weight: userData['weight'].toDouble(),
       weightUnit: userData['weight-unit'],
     );
+
+    final bmi = calcBrain.calculateBMI();
 
     return Scaffold(
       body: SafeArea(
@@ -52,18 +57,13 @@ class ResultsPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text(
-                        'Healthy',
-                        style: TextStyle(
-                          color: Colors.green,
-                          fontSize: 30.0,
-                          fontWeight: FontWeight.bold,
-                        ),
+                      UserHealthText(
+                        userBMI: double.parse(bmi),
                       ),
                       Column(
                         children: [
                           Text(
-                            calcBrain.calculateBMI(),
+                            bmi,
                             style: TextStyle(
                                 fontSize: 100.0, fontWeight: FontWeight.w700),
                           ),
@@ -71,18 +71,18 @@ class ResultsPage extends StatelessWidget {
                           OutlinedButton(
                             child: Text('What does this value mean?'),
                             onPressed: () {
-                              Navigator.pushNamed(context, '/user_interpret');
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ResultInterpretPage(),
+                                ),
+                              );
                             },
                           ),
                         ],
                       ),
-                      Text(
-                        'Your body weight is within healthy limits',
-                        style: TextStyle(
-                          fontSize: 25.0,
-                          fontWeight: FontWeight.w500,
-                        ),
-                        textAlign: TextAlign.center,
+                      UserInfoText(
+                        userBMI: double.parse(bmi),
                       ),
                     ],
                   ),
@@ -100,6 +100,88 @@ class ResultsPage extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class UserHealthText extends StatefulWidget {
+  String healthText;
+  double userBMI;
+  Color textColor;
+
+  UserHealthText({@required this.userBMI});
+
+  @override
+  _UserHealthTextState createState() => _UserHealthTextState();
+}
+
+class _UserHealthTextState extends State<UserHealthText> {
+  void decideText(double bmi) {
+    if (bmi > 25.0) {
+      widget.textColor = Colors.yellow.shade600;
+      widget.healthText = 'OVERWEIGHT';
+    } else if (bmi < 18.5) {
+      widget.textColor = Colors.yellow.shade600;
+      widget.healthText = 'UNDERWEIGHT';
+    } else {
+      widget.textColor = Colors.green;
+      widget.healthText = 'NORMAL';
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    decideText(widget.userBMI);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      widget.healthText,
+      style: TextStyle(
+        color: widget.textColor,
+        fontSize: 30.0,
+        fontWeight: FontWeight.bold,
+      ),
+    );
+  }
+}
+
+class UserInfoText extends StatefulWidget {
+  double userBMI;
+  String text;
+  UserInfoText({@required this.userBMI});
+
+  @override
+  _UserInfoTextState createState() => _UserInfoTextState();
+}
+
+class _UserInfoTextState extends State<UserInfoText> {
+  @override
+  void initState() {
+    super.initState();
+    decideText();
+  }
+
+  void decideText() {
+    if (widget.userBMI > 25.0)
+      widget.text = 'Exercise a bit more!';
+    else if (widget.userBMI < 18.5)
+      widget.text = 'Eat bruv!';
+    else
+      widget.text = 'Be like this!';
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      widget.text,
+      style: TextStyle(
+        fontSize: 25.0,
+        fontWeight: FontWeight.w500,
+      ),
+      textAlign: TextAlign.center,
     );
   }
 }

@@ -11,6 +11,8 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.2
   font_awesome_flutter: ^9.0.0
+  audio_wave: ^0.0.3
+  charts_flutter: ^0.10.0
 
 dev_dependencies:
   flutter_test:
