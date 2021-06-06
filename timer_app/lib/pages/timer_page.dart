@@ -15,6 +15,7 @@ class _TimerPageState extends State<TimerPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Container(
         width: double.infinity,
         child: Column(
@@ -62,21 +63,46 @@ class Timer extends StatelessWidget {
   }
 }
 
-class TimerTitle extends StatelessWidget {
+class TimerTitle extends StatefulWidget {
   const TimerTitle({Key? key}) : super(key: key);
 
   @override
+  _TimerTitleState createState() => _TimerTitleState();
+}
+
+class _TimerTitleState extends State<TimerTitle> {
+  late TextEditingController _textTitleController;
+
+  @override
+  void initState() {
+    _textTitleController = new TextEditingController(text: 'Meditation');
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Text(
-      'Meditation',
-      style: TextStyle(
-        fontSize: 30.0,
-        fontFamily: 'Noto Sans',
-        fontWeight: FontWeight.w400,
+    final stateManager = getIt<TimerPageManager>();
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 40.0),
+      child: TextField(
+        textInputAction: TextInputAction.done,
+        controller: _textTitleController,
+        textAlign: TextAlign.center,
+        onSubmitted: (String value) {
+          stateManager.timerTitleNotifier.setTimerTitle(value);
+          print(stateManager.timerTitleNotifier.value);
+        },
+        style: TextStyle(
+          fontSize: 30.0,
+          fontFamily: 'Noto Sans',
+          fontWeight: FontWeight.w400,
+        ),
       ),
     );
   }
 }
+
+//
 
 class ButtonContainer extends StatelessWidget {
   const ButtonContainer({Key? key}) : super(key: key);
@@ -93,7 +119,7 @@ class ButtonContainer extends StatelessWidget {
             if (buttonState == ButtonState.initial) ...[
               PlayButton(),
             ] else if (buttonState == ButtonState.finished) ...[
-              // ResetButton(),
+              ResetButton(),
             ] else if (buttonState == ButtonState.paused) ...[
               PlayButton(),
               SizedBox(width: 40.0),
@@ -115,6 +141,7 @@ class PlayButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final stateManager = getIt<TimerPageManager>();
     return CircleAvatar(
       backgroundColor: Colors.deepOrange[800],
       radius: 40.0,
@@ -122,7 +149,9 @@ class PlayButton extends StatelessWidget {
         icon: Icon(
           Icons.play_arrow,
         ),
-        onPressed: () {},
+        onPressed: () {
+          stateManager.start();
+        },
         color: Colors.white,
         splashColor: Colors.grey[400],
         splashRadius: 50.0,
@@ -137,6 +166,7 @@ class PauseButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final stateManager = getIt<TimerPageManager>();
     return CircleAvatar(
       backgroundColor: Colors.deepOrange[800],
       radius: 40.0,
@@ -144,7 +174,9 @@ class PauseButton extends StatelessWidget {
         icon: Icon(
           Icons.pause_outlined,
         ),
-        onPressed: () {},
+        onPressed: () {
+          stateManager.pause();
+        },
         color: Colors.white,
         splashColor: Colors.grey[400],
         splashRadius: 50.0,
@@ -159,6 +191,7 @@ class ResetButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final stateManager = getIt<TimerPageManager>();
     return CircleAvatar(
       backgroundColor: Colors.deepOrange[800],
       radius: 40.0,
@@ -166,7 +199,9 @@ class ResetButton extends StatelessWidget {
         icon: Icon(
           Icons.restart_alt_outlined,
         ),
-        onPressed: () {},
+        onPressed: () {
+          stateManager.reset();
+        },
         color: Colors.white,
         splashColor: Colors.grey[400],
         splashRadius: 50.0,
