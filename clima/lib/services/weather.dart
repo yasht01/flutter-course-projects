@@ -4,12 +4,20 @@ import 'package:clima/services/networking.dart';
 import 'package:clima/utilities/constants.dart';
 
 class WeatherModel {
+  Future getSearchLocationList(String userInput) async {
+    NetworkHelper helper = NetworkHelper(
+        'https://api.openweathermap.org/geo/1.0/direct?q=${userInput}&appid=${kApiKey}&limit=10');
 
-  Future<dynamic> getSearchLocationList(String userInput) async {
-    return await NetworkHelper('http://api.openweathermap.org/geo/1.0/direct?q=jabalpur&appid=5945c77f4795c540cad2459dd187be60&limit=10').getData();
+    var data = await helper.getData();
+    return data;
+  }
 
-    // Map data = await helper.getData();
-    // return data;
+  Future<Map> getWeatherDataLatLon(double lat, double lon) async {
+    NetworkHelper helper = NetworkHelper(
+        'https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=$kApiKey&units=metric');
+
+    var data = await helper.getData();
+    return data;
   }
 
   Future<Map> getWeatherData() async {

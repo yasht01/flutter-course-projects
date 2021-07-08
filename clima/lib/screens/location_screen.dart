@@ -54,33 +54,38 @@ class _LocationScreenState extends State<LocationScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  FlatButton(
-                    onPressed: () async {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) {
-                            return CityScreen();
-                          },
-                        ),
-                      );
-                    },
-                    child: Icon(
-                      Icons.near_me,
-                      size: 50.0,
+              Container(
+                margin: EdgeInsets.only(top: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    FlatButton(
+                      onPressed: () async {
+                        var data = await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return CityScreen();
+                            },
+                          ),
+                        );
+
+                        if (data != null) updateUI(data);
+                      },
+                      child: Icon(
+                        Icons.near_me,
+                        size: 50.0,
+                      ),
                     ),
-                  ),
-                  FlatButton(
-                    onPressed: () {},
-                    child: Icon(
-                      Icons.location_city,
-                      size: 50.0,
+                    FlatButton(
+                      onPressed: () {},
+                      child: Icon(
+                        Icons.location_city,
+                        size: 50.0,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
               Padding(
                 padding: EdgeInsets.only(left: 15.0),
