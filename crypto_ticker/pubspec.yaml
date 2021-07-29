@@ -1,0 +1,36 @@
+name: crypto_ticker
+description: A new Flutter project.
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/images/bitcoin.png
+    - assets/images/ether.jpg
+    - assets/images/lite.jpg
+    - assets/images/matic.png
+
+  fonts:
+    - family: Exo
+      fonts:
+        - asset: assets/fonts/Exo-Black.ttf
+        - asset: assets/fonts/Exo-Bold.ttf
+        - asset: assets/fonts/Exo-ExtraBold.ttf
+        - asset: assets/fonts/Exo-Light.ttf
+        - asset: assets/fonts/Exo-Medium.ttf
+        - asset: assets/fonts/Exo-Regular.ttf
+        - asset: assets/fonts/Exo-Italic.ttf
