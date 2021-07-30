@@ -1,6 +1,7 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
+
+import 'package:crypto_ticker/widgets/init_widgets.dart';
 
 class InitPage extends StatelessWidget {
   const InitPage({Key? key}) : super(key: key);
@@ -69,15 +70,15 @@ class InitPage extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        CryptoName(inputText: 'Bitcoin'),
-                        CryptoName(inputText: 'Ether'),
-                        CryptoName(inputText: 'LTC'),
-                        CryptoName(inputText: 'MATIC'),
+                        CryptoNameWidget(inputText: 'Bitcoin'),
+                        CryptoNameWidget(inputText: 'Ether'),
+                        CryptoNameWidget(inputText: 'LTC'),
+                        CryptoNameWidget(inputText: 'MATIC'),
                       ],
                     ),
                   ),
                   SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.015,
+                    height: MediaQuery.of(context).size.height * 0.03,
                   ),
                   Align(
                     alignment: Alignment(0.9, 1),
@@ -98,53 +99,16 @@ class InitPage extends StatelessWidget {
                     margin: EdgeInsets.all(16.0),
                     padding: EdgeInsets.only(
                         left: MediaQuery.of(context).size.width * 0.6),
-                    child: RawMaterialButton(
-                      onPressed: () {
+                    child: TransparentButton(
+                      icon: Icons.east,
+                      iconSize: 60,
+                      callback: () {
                         Navigator.pushNamed(context, '/home');
                       },
-                      child: Icon(
-                        Icons.east,
-                        size: 60,
-                      ),
-                      splashColor: Colors.blue.withOpacity(1.0),
-                      shape: CircleBorder(),
-                      elevation: 0,
-                      highlightElevation: 0,
-                      fillColor: Colors.blue.withOpacity(0.3),
                     ),
                   ),
                 ],
               ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class CryptoName extends StatelessWidget {
-  late String? text;
-  CryptoName({Key? key, String? inputText}) : super(key: key) {
-    this.text = inputText;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(15.0),
-      decoration: BoxDecoration(
-        color: Colors.blueGrey.withOpacity(0.3),
-        borderRadius: BorderRadius.circular(10.0),
-      ),
-      child: Row(
-        children: [
-          Text(
-            text!,
-            style: TextStyle(
-              fontFamily: 'Exo',
-              fontWeight: FontWeight.w600,
-              fontSize: 15.0,
             ),
           ),
         ],
