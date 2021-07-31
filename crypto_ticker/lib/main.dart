@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark(),
-      initialRoute: '/home',
+      initialRoute: '/init',
       routes: {
         '/home': (context) => HomePage(),
         '/init': (context) => InitPage(),

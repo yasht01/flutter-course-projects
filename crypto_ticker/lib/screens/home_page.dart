@@ -1,8 +1,8 @@
 import 'dart:ui';
-import 'package:crypto_ticker/shared/constants.dart';
 import 'package:flutter/material.dart';
 
 import 'package:crypto_ticker/widgets/home_widgets.dart';
+import 'package:crypto_ticker/shared/background_widget.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -72,10 +72,6 @@ class _HomePageState extends State<HomePage> {
                     constraints: BoxConstraints(
                       minHeight: MediaQuery.of(context).size.height * 0.09,
                     ),
-                    // decoration: BoxDecoration(
-                    //   color: Colors.blueGrey.withOpacity(0.35),
-                    //   borderRadius: BorderRadius.circular(100),
-                    // ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -147,8 +143,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.all(
-                        MediaQuery.of(context).size.width * 0.07),
+                    margin: EdgeInsets.fromLTRB(22, 20, 20, 20),
                     constraints: BoxConstraints(
                       minHeight: MediaQuery.of(context).size.height * 0.45,
                     ),
@@ -156,21 +151,12 @@ class _HomePageState extends State<HomePage> {
                       color: Colors.blueGrey.withOpacity(0.35),
                       borderRadius: BorderRadius.circular(20.0),
                     ),
-                    child: Center(
-                      child: Text(
-                        'Live Graph',
-                        style: TextStyle(
-                          fontFamily: 'Exo',
-                          fontWeight: FontWeight.bold,
-                          fontSize: 30.0,
-                        ),
-                      ),
-                    ),
+                    child: GraphWidget(),
                   ),
                   Container(
                     margin: EdgeInsets.symmetric(
                       vertical: MediaQuery.of(context).size.width * 0.02,
-                      horizontal: MediaQuery.of(context).size.width * 0.07,
+                      horizontal: MediaQuery.of(context).size.width * 0.08,
                     ),
                     constraints: BoxConstraints(
                       minHeight: MediaQuery.of(context).size.height * 0.06,
