@@ -7,12 +7,13 @@ class NavBar extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.transparent,
       ),
+      margin: EdgeInsets.all(20),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           GestureDetector(
             onTap: () {
-              print('Select city');
+              Navigator.pop(context);
             },
             child: Icon(
               Icons.cloud_outlined,
@@ -23,7 +24,7 @@ class NavBar extends StatelessWidget {
           SizedBox(width: 60.0),
           GestureDetector(
             onTap: () {
-              print('Add city');
+              Navigator.pushNamed(context, '/location');
             },
             child: Icon(
               Icons.location_on_outlined,

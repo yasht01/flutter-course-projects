@@ -206,12 +206,9 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
-          Expanded(
-            flex: 1,
-            child: NavBar(),
-          ),
         ],
       ),
+      bottomNavigationBar: NavBar(),
     );
   }
 }
