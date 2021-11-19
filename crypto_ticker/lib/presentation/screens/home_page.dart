@@ -1,8 +1,8 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 
-import 'package:crypto_ticker/widgets/home_widgets.dart';
-import 'package:crypto_ticker/shared/background_widget.dart';
+import 'package:crypto_ticker/presentation/widgets/home_widgets.dart';
+import 'package:crypto_ticker/presentation/shared/background_widget.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);

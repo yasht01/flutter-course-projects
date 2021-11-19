@@ -1,7 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 
-import 'package:crypto_ticker/widgets/init_widgets.dart';
+import 'package:crypto_ticker/presentation/widgets/init_widgets.dart';
 
 class InitPage extends StatelessWidget {
   const InitPage({Key? key}) : super(key: key);

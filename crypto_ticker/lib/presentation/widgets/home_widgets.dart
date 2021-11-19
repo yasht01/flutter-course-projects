@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 
-import 'package:crypto_ticker/shared/constants.dart';
+import 'package:crypto_ticker/presentation/shared/constants.dart';
 
 class TimeButton extends StatelessWidget {
   late String text;
