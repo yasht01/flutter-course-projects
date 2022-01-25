@@ -1,8 +1,10 @@
 import 'dart:ui';
 
+import 'package:crypto_ticker/logic/cubits/settings_cubit.dart';
 import 'package:flutter/material.dart';
 
 import 'package:crypto_ticker/presentation/shared/background_widget.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);
@@ -75,92 +77,99 @@ class _SettingsPageState extends State<SettingsPage> {
                       minHeight: MediaQuery.of(context).size.height * 0.5,
                       maxWidth: MediaQuery.of(context).size.width * 0.85,
                     ),
-                    child: Column(
-                      children: [
-                        SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.03),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    child: BlocBuilder<SettingsCubit, SettingsState>(
+                      builder: (context, state) {
+                        return Column(
                           children: [
-                            Text(
-                              'Theme',
-                              style: TextStyle(
-                                fontFamily: 'Exo',
-                                fontSize: 25,
-                              ),
+                            SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.03),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Text(
+                                  'Theme',
+                                  style: TextStyle(
+                                    fontFamily: 'Exo',
+                                    fontSize: 25,
+                                  ),
+                                ),
+                                DropdownButton<String>(
+                                  value: state.settingsData!['theme'],
+                                  icon: const Icon(
+                                      Icons.arrow_drop_down_circle_outlined),
+                                  iconSize: 24,
+                                  elevation: 16,
+                                  style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 20,
+                                      fontFamily: 'Exo'),
+                                  underline: Container(
+                                    color: Colors.transparent,
+                                  ),
+                                  onChanged: (String? newValue) {
+                                    BlocProvider.of<SettingsCubit>(context)
+                                        .updateTheme(newValue!);
+                                  },
+                                  items: <String>[
+                                    'Dark',
+                                    'Light',
+                                  ].map<DropdownMenuItem<String>>(
+                                      (String value) {
+                                    return DropdownMenuItem<String>(
+                                      value: value,
+                                      child: Text('$value '),
+                                    );
+                                  }).toList(),
+                                ),
+                              ],
                             ),
-                            DropdownButton<String>(
-                              value: themeValue,
-                              icon: const Icon(
-                                  Icons.arrow_drop_down_circle_outlined),
-                              iconSize: 24,
-                              elevation: 16,
-                              style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 20,
-                                  fontFamily: 'Exo'),
-                              underline: Container(
-                                color: Colors.transparent,
-                              ),
-                              onChanged: (String? newValue) {
-                                setState(() {
-                                  themeValue = newValue!;
-                                });
-                              },
-                              items: <String>[
-                                'Dark',
-                                'Light',
-                              ].map<DropdownMenuItem<String>>((String value) {
-                                return DropdownMenuItem<String>(
-                                  value: value,
-                                  child: Text('$value '),
-                                );
-                              }).toList(),
+                            SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.03),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Text(
+                                  'Currency',
+                                  style: TextStyle(
+                                    fontFamily: 'Exo',
+                                    fontSize: 25,
+                                  ),
+                                ),
+                                DropdownButton<String>(
+                                  value: state.settingsData!['currency'],
+                                  icon: const Icon(
+                                      Icons.arrow_drop_down_circle_outlined),
+                                  iconSize: 24,
+                                  elevation: 16,
+                                  style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 20,
+                                      fontFamily: 'Exo'),
+                                  underline: Container(
+                                    color: Colors.transparent,
+                                  ),
+                                  onChanged: (String? newValue) {
+                                    BlocProvider.of<SettingsCubit>(context)
+                                        .updateCurrency(newValue!);
+                                  },
+                                  items: <String>[
+                                    'USD',
+                                    'INR',
+                                  ].map<DropdownMenuItem<String>>(
+                                      (String value) {
+                                    return DropdownMenuItem<String>(
+                                      value: value,
+                                      child: Text('$value '),
+                                    );
+                                  }).toList(),
+                                ),
+                              ],
                             ),
                           ],
-                        ),
-                        SizedBox(height: MediaQuery.of(context).size.height * 0.03),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Text(
-                              'Currency',
-                              style: TextStyle(
-                                fontFamily: 'Exo',
-                                fontSize: 25,
-                              ),
-                            ),
-                            DropdownButton<String>(
-                              value: currencyValue,
-                              icon: const Icon(
-                                  Icons.arrow_drop_down_circle_outlined),
-                              iconSize: 24,
-                              elevation: 16,
-                              style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 20,
-                                  fontFamily: 'Exo'),
-                              underline: Container(
-                                color: Colors.transparent,
-                              ),
-                              onChanged: (String? newValue) {
-                                setState(() {
-                                  currencyValue = newValue!;
-                                });
-                              },
-                              items: <String>[
-                                'USD',
-                                'INR',
-                              ].map<DropdownMenuItem<String>>((String value) {
-                                return DropdownMenuItem<String>(
-                                  value: value,
-                                  child: Text('$value   '),
-                                );
-                              }).toList(),
-                            ),
-                          ],
-                        ),
-                      ],
+                        );
+                      },
                     ),
                   ),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.05),

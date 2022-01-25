@@ -1,6 +1,6 @@
 name: crypto_ticker
 description: A new Flutter project.
-publish_to: 'none'
+publish_to: "none"
 version: 1.0.0+1
 
 environment:
@@ -13,7 +13,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^7.2.0
-  http: ^0.13.3
+  http: ^0.13.4
 
 dev_dependencies:
   flutter_test:
