@@ -36,7 +36,6 @@ class _WelcomeScreenState extends State<WelcomeScreen>
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     _animationController.dispose();
   }
@@ -53,11 +52,13 @@ class _WelcomeScreenState extends State<WelcomeScreen>
           children: <Widget>[
             Row(
               children: <Widget>[
-                Hero(
-                  tag: 'flash-logo',
-                  child: SizedBox(
-                    child: Image.asset('images/logo.png'),
-                    height: 60.0,
+                Flexible(
+                  child: Hero(
+                    tag: 'flash-logo',
+                    child: SizedBox(
+                      child: Image.asset('images/logo.png'),
+                      height: 60.0,
+                    ),
                   ),
                 ),
                 const Text(
