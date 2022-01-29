@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:todo/models/task_data.dart';
 
 class AddTaskModal extends StatelessWidget {
   final _textFieldController = TextEditingController();
-  final Function addTask;
 
-  AddTaskModal({Key? key, required this.addTask}) : super(key: key);
+  AddTaskModal({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +48,7 @@ class AddTaskModal extends StatelessWidget {
                 primary: Colors.white,
               ),
               onPressed: () {
-                addTask(_textFieldController.text);
+                Provider.of<TaskData>(context, listen: false).addTask(_textFieldController.text);
                 Navigator.pop(context);
               },
               child: const Center(

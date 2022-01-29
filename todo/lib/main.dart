@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:todo/models/task_data.dart';
 import 'package:todo/screens/tasks_screen.dart';
 
+import 'models/task.dart';
+
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -10,10 +14,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: TasksPage(),
+    return ChangeNotifierProvider<TaskData>(
+      create: (context) => TaskData(),
+      child: const MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: TasksPage(),
+      ),
     );
   }
 }
-

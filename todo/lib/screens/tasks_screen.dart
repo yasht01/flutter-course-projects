@@ -1,33 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:todo/models/task.dart';
+import 'package:provider/provider.dart';
+import 'package:todo/models/task_data.dart';
 import 'package:todo/widgets/add_task_modal.dart';
 import 'package:todo/widgets/tasks_list.dart';
 
-class TasksPage extends StatefulWidget {
+class TasksPage extends StatelessWidget {
   const TasksPage({Key? key}) : super(key: key);
-
-  @override
-  State<TasksPage> createState() => _TasksPageState();
-}
-
-class _TasksPageState extends State<TasksPage> {
-  List<Task> _data = [
-    Task(completed: false, content: "Buy milk"),
-    Task(completed: false, content: "Buy eggs"),
-    Task(completed: true, content: "Buy bread"),
-  ];
-
-  void addTask(String taskTitle) {
-    setState(() {
-      _data.add(Task(completed: false, content: taskTitle));
-    });
-  }
-
-  void toggleCheckbox(int index, bool? newValue) {
-    return setState(() {
-      _data[index].completed = newValue!;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,9 +25,7 @@ class _TasksPageState extends State<TasksPage> {
           showModalBottomSheet(
             context: context,
             backgroundColor: Colors.transparent,
-            builder: (context) => AddTaskModal(
-              addTask: addTask,
-            ),
+            builder: (context) => AddTaskModal(),
             isScrollControlled: true,
           );
         },
@@ -88,9 +64,9 @@ class _TasksPageState extends State<TasksPage> {
                         fontWeight: FontWeight.bold),
                   ),
                 ),
-                const Text(
-                  '12 Tasks',
-                  style: TextStyle(
+                Text(
+                  "${Provider.of<TaskData>(context).taskCount} Tasks",
+                  style: const TextStyle(
                       color: Colors.white,
                       fontSize: 20,
                       fontWeight: FontWeight.w600),
@@ -109,10 +85,7 @@ class _TasksPageState extends State<TasksPage> {
                   topRight: Radius.circular(20),
                 ),
               ),
-              child: TasksList(
-                data: _data,
-                toggleCheckbox: toggleCheckbox,
-              ),
+              child: const TasksList(),
             ),
           ),
         ],
